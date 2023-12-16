@@ -1,6 +1,6 @@
 package kr.ac.kumoh.ce.s20180147.s23t01bluearchive
 
-data class student(
+data class Student(
     val id: Int,
     val name: String,
     val academy: String,
