@@ -14,7 +14,7 @@ class StudentViewModel(): ViewModel() {
     private val studentApi: StudentApi
     private val _studentList = MutableLiveData<List<Student>>()
 
-    val songList: LiveData<List<Student>>
+    val studentList: LiveData<List<Student>>
         get() = _studentList
 
     init {
