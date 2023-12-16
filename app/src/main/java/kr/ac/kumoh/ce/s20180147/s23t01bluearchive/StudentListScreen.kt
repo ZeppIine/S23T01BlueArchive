@@ -1,5 +1,6 @@
 package kr.ac.kumoh.ce.s20180147.s23t01bluearchive
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -100,7 +101,7 @@ fun RatingBar(stars: Int) {
             Icon(
                 imageVector = Icons.Filled.Star,
                 contentDescription = "성급",
-                modifier = Modifier.size(48.dp),
+                modifier = Modifier.size(40.dp),
                 tint = Color.Yellow)
         }
     }
@@ -108,68 +109,132 @@ fun RatingBar(stars: Int) {
 
 @Composable
 fun StudentDetail(student: Student, navController: NavController, padding: PaddingValues) {
-    Card(
+    Column(
         modifier = Modifier
             .padding(padding)
-            .padding(10.dp)
-            .clickable { navController.navigateUp() },
+            .verticalScroll(rememberScrollState())
     ) {
-        Column(
+        Card(
             modifier = Modifier
-                .padding(16.dp)
-                .verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally
+                .padding(10.dp)
+                .clickable { navController.navigateUp() },
         ) {
-            RatingBar(student.star)
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(
-                student.name,
-                fontSize = 40.sp,
-                textAlign = TextAlign.Center,
-                lineHeight = 45.sp
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-
-            AsyncImage(
-                model = "https://schale.gg/images/student/portrait/${student.img}.webp",
-                contentDescription = "노래 앨범 이미지",
-                contentScale = ContentScale.Crop,
+            Column(
                 modifier = Modifier
-                    .size(400.dp),
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Row(
-                verticalAlignment = Alignment.CenterVertically
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        student.name,
+                        fontSize = 40.sp,
+                        textAlign = TextAlign.Center,
+                        lineHeight = 45.sp
+                    )
+                    Spacer(modifier = Modifier.width(16.dp))
+
+                    RatingBar(student.star)
+                }
+                Spacer(modifier = Modifier.height(16.dp))
+
                 AsyncImage(
-                    model = "https://schale.gg/images/student/collection/${student.img}.webp",
-                    contentDescription = "가수 이미지",
-                    contentScale = ContentScale.Crop,
+                    model = "https://schale.gg/images/student/portrait/${student.img}.webp",
+                    contentDescription = "${student.name} 이미지",
+                    contentScale = ContentScale.Inside,
                     modifier = Modifier
-                        .size(50.dp)
-                        .clip(CircleShape)
+                        .size(400.dp),
                 )
-                Spacer(modifier = Modifier.width(8.dp))
+                Spacer(modifier = Modifier.height(16.dp))
 
-                Text(student.academy, fontSize = 30.sp)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    AsyncImage(
+                        model = "https://schale.gg/images/student/collection/${student.img}.webp",
+                        contentDescription = "학원 이미지",
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(50.dp)
+                            .clip(CircleShape)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    Text(student.academy, fontSize = 30.sp)
+                }
             }
-            Spacer(modifier = Modifier.height(32.dp))
-
-            Text(
-                student.attack,
-                fontSize = 30.sp,
-                textAlign = TextAlign.Center,
-                lineHeight = 35.sp
-            )
-
-            Text(
-                student.defence,
-                fontSize = 30.sp,
-                textAlign = TextAlign.Center,
-                lineHeight = 35.sp
-            )
         }
+        Card(
+            modifier = Modifier
+                .padding(10.dp)
+        ) {
+            Column {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth(0.5f)
+                            .fillMaxSize()
+                            .padding(8.dp),
+                        text = "공격타입",
+                        fontSize = 30.sp,
+                        textAlign = TextAlign.Center,
+                        lineHeight = 35.sp
+                    )
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth(1f)
+                            .fillMaxSize()
+                            .padding(8.dp),
+                        text = "방어타입",
+                        fontSize = 30.sp,
+                        textAlign = TextAlign.Center,
+                        lineHeight = 35.sp
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth(0.5f)
+                            .fillMaxSize()
+                            .background(getBackgroundColor(student.attack))
+                            .padding(8.dp),
+                        text = student.attack,
+                        fontSize = 30.sp,
+                        textAlign = TextAlign.Center,
+                        lineHeight = 35.sp
+                    )
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth(1f)
+                            .fillMaxSize()
+                            .background(getBackgroundColor(student.defence))
+                            .padding(8.dp),
+                        text = student.defence,
+                        fontSize = 30.sp,
+                        textAlign = TextAlign.Center,
+                        lineHeight = 35.sp
+                    )
+                }
+            }
+        }
+    }
+}
+
+fun getBackgroundColor(type: String): Color {
+    return when (type) {
+        "폭발", "경장갑" -> Color(0xFFA70C19)
+        "관통", "중장갑" -> Color(0xFFB26D1F)
+        "신비", "특수장갑" -> Color(0xFF216F9C)
+        "진동", "탄력장갑" -> Color(0xFF9431A5)
+        else -> Color.Gray // 기본값 또는 다른 처리를 원하는 색상
     }
 }
