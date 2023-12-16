@@ -5,4 +5,6 @@ import retrofit2.http.GET
 interface StudentApi {
     @GET("student")
     suspend fun getStudent(): List<Student>
+    @GET("academy")
+    suspend fun getAcademy(): List<Academy>
 }

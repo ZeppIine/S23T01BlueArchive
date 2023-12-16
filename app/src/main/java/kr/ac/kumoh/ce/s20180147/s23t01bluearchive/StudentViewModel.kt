@@ -13,9 +13,13 @@ class StudentViewModel(): ViewModel() {
     private val SERVER_URL = "https://port-0-s23w10backend-gj8u2llomit2u9.sel5.cloudtype.app/"
     private val studentApi: StudentApi
     private val _studentList = MutableLiveData<List<Student>>()
+    private val _academyList = MutableLiveData<List<Academy>>()
 
     val studentList: LiveData<List<Student>>
         get() = _studentList
+
+    val academyList: LiveData<List<Academy>>
+        get() = _academyList
 
     init {
         val retrofit = Retrofit.Builder()
