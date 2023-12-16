@@ -33,7 +33,7 @@ fun MainScreen(viewModel: StudentViewModel) {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            StudentApp(studentList)
+            StudentDrawer(studentList)
         }
     }
 }
