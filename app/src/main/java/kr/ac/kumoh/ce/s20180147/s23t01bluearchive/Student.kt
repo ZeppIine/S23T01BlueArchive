@@ -7,5 +7,7 @@ data class Student(
     val club: String,
     val star: Int,
     val attack: String,
-    val defence: String
+    val defence: String,
+    val iconimg: String?,
+    val charimg: String?
 )
