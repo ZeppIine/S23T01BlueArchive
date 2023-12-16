@@ -64,7 +64,7 @@ fun StudentItem(id: Int, student: Student, onNavTODetail: (String) -> Unit){
                 .padding(8.dp)
         ) {
             AsyncImage(
-                model = "https://schale.gg/images/student/collection/10010.webp", // TODO: 이미지 링크 변경 필요
+                model = "https://schale.gg/images/student/collection/${student.img}.webp",
                 contentDescription = "${student.name} 이미지",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
