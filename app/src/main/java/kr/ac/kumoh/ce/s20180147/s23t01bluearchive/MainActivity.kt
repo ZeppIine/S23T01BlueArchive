@@ -26,6 +26,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MainScreen(viewModel: StudentViewModel) {
     val studentList by viewModel.studentList.observeAsState(emptyList())
+    val academyList by viewModel.academyList.observeAsState(emptyList())
 
     S23T01BlueArchiveTheme {
         // A surface container using the 'background' color from the theme
@@ -33,7 +34,7 @@ fun MainScreen(viewModel: StudentViewModel) {
             modifier = Modifier.fillMaxSize(),
             color = MaterialTheme.colorScheme.background
         ) {
-            StudentDrawer(studentList)
+            StudentDrawer(studentList, academyList)
         }
     }
 }

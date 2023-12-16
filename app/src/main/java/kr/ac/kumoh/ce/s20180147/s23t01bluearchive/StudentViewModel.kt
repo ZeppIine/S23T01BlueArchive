@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class StudentViewModel(): ViewModel() {
+class StudentViewModel: ViewModel() {
     private val SERVER_URL = "https://port-0-s23w10backend-gj8u2llomit2u9.sel5.cloudtype.app/"
     private val studentApi: StudentApi
     private val _studentList = MutableLiveData<List<Student>>()
@@ -34,8 +34,10 @@ class StudentViewModel(): ViewModel() {
     private fun fetchData() {
         viewModelScope.launch {
             try {
-                val response = studentApi.getStudent()
-                _studentList.value = response
+                val studentResponse = studentApi.getStudent()
+                _studentList.value = studentResponse
+                val academyResponse = studentApi.getAcademy()
+                _academyList.value = academyResponse
             } catch (e: Exception) {
                 Log.e("fetchData()", e.toString())
             }

@@ -8,6 +8,5 @@ data class Student(
     val star: Int,
     val attack: String,
     val defence: String,
-    val iconimg: String?,
-    val charimg: String?
+    val img: Int
 )
