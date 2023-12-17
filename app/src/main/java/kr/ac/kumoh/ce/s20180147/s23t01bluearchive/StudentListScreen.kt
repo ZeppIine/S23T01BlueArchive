@@ -126,16 +126,27 @@ fun StudentDetail(student: Student, navController: NavController, padding: Paddi
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Text(
-                        student.name,
-                        fontSize = 40.sp,
-                        textAlign = TextAlign.Center,
-                        lineHeight = 45.sp
+                ) {AsyncImage(
+                        model = "https://schale.gg/images/student/lobby/${student.img}.webp",
+                        contentDescription = "${student.name} 메모리얼 이미지",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .size(100.dp)
+                            .clip(RoundedCornerShape(percent = 20)),
                     )
                     Spacer(modifier = Modifier.width(16.dp))
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        RatingBar(student.star)
 
-                    RatingBar(student.star)
+                        Text(
+                            student.name,
+                            fontSize = 40.sp,
+                            textAlign = TextAlign.Center,
+                            lineHeight = 45.sp
+                        )
+                    }
                 }
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -157,13 +168,17 @@ fun StudentDetail(student: Student, navController: NavController, padding: Paddi
                         contentDescription = "${student.academy} 이미지",
                         contentScale = ContentScale.Fit,
                         modifier = Modifier
-                            .size(40.dp)
+                            .size(50.dp)
                             .clip(RoundedCornerShape(percent = 20))
                             .background(Color(0xFF40484D))
                     )
                     Spacer(modifier = Modifier.width(8.dp))
-
-                    Text(student.academy, fontSize = 30.sp)
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        TextName(student.academy)
+                        TextAcademy(student.club)
+                    }
                 }
             }
         }
