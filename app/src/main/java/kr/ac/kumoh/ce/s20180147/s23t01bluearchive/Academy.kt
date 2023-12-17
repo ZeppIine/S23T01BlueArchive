@@ -4,5 +4,6 @@ data class Academy(
     val id: Int,
     val academy: String,
     val club: String,
-    val acaimg: String?
+    val acalogo: String,
+    val clubbgimg: String
 )

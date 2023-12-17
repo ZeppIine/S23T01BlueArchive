@@ -1,5 +1,6 @@
 package kr.ac.kumoh.ce.s20180147.s23t01bluearchive
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,7 +16,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Card
@@ -25,6 +25,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -60,14 +61,15 @@ fun AcademyItem(id: Int, academy: Academy, onNavTODetail: (String) -> Unit){
                 .padding(8.dp)
         ) {
             AsyncImage(
-                model = "https://picsum.photos/300/300?random=${academy.id}", // TODO: 이미지 링크 변경 필요
-                contentDescription = "${academy.club} 이미지",
-                contentScale = ContentScale.Crop,
+                model = academy.acalogo,
+                contentDescription = "${academy.academy} 이미지",
+                contentScale = ContentScale.Fit,
                 modifier = Modifier
                     .size(80.dp)
-                    .clip(RoundedCornerShape(percent = 40)),
+                    .clip(RoundedCornerShape(percent = 20))
+                    .background(Color(0xFF40484D))
             )
-            Spacer(modifier = Modifier.width(10.dp))
+            Spacer(modifier = Modifier.width(20.dp))
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center
@@ -89,12 +91,12 @@ fun AcademyDetail(academy: Academy, navController: NavController, padding: Paddi
         modifier = Modifier
             .padding(padding)
             .padding(10.dp)
+            .verticalScroll(rememberScrollState())
             .clickable { navController.navigateUp() },
     ) {
         Column(
             modifier = Modifier
-                .padding(16.dp)
-                .verticalScroll(rememberScrollState()),
+                .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
@@ -106,11 +108,13 @@ fun AcademyDetail(academy: Academy, navController: NavController, padding: Paddi
             Spacer(modifier = Modifier.height(16.dp))
 
             AsyncImage(
-                model = "https://picsum.photos/300/300?random=${academy.id}",
+                model = academy.clubbgimg,
                 contentDescription = "동아리 이미지",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .size(400.dp),
+                    .fillMaxWidth()
+                    .height(300.dp)
+                    .clip(RoundedCornerShape(percent = 5))
             )
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -118,14 +122,15 @@ fun AcademyDetail(academy: Academy, navController: NavController, padding: Paddi
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 AsyncImage(
-                    model = "https://i.pravatar.cc/100?u=${academy.academy}",
-                    contentDescription = "학원 이미지",
-                    contentScale = ContentScale.Crop,
+                    model = academy.acalogo,
+                    contentDescription = "${academy.academy} 이미지",
+                    contentScale = ContentScale.Fit,
                     modifier = Modifier
-                        .size(50.dp)
-                        .clip(CircleShape)
+                        .size(40.dp)
+                        .clip(RoundedCornerShape(percent = 20))
+                        .background(Color(0xFF40484D))
                 )
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.width(8.dp))
 
                 Text(academy.academy, fontSize = 30.sp)
             }

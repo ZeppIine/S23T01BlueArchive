@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -72,7 +71,8 @@ fun StudentItem(id: Int, student: Student, onNavTODetail: (String) -> Unit){
                     .size(80.dp)
                     .clip(RoundedCornerShape(percent = 40)),
             )
-            Spacer(modifier = Modifier.width(10.dp))
+            Spacer(modifier = Modifier.width(20.dp))
+
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center
@@ -142,9 +142,10 @@ fun StudentDetail(student: Student, navController: NavController, padding: Paddi
                 AsyncImage(
                     model = "https://schale.gg/images/student/portrait/${student.img}.webp",
                     contentDescription = "${student.name} 이미지",
-                    contentScale = ContentScale.Inside,
+                    contentScale = ContentScale.Fit,
                     modifier = Modifier
-                        .size(400.dp),
+                        .fillMaxWidth()
+                        .height(400.dp)
                 )
                 Spacer(modifier = Modifier.height(16.dp))
 
@@ -152,12 +153,13 @@ fun StudentDetail(student: Student, navController: NavController, padding: Paddi
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     AsyncImage(
-                        model = "https://schale.gg/images/student/collection/${student.img}.webp",
-                        contentDescription = "학원 이미지",
-                        contentScale = ContentScale.Crop,
+                        model = student.acalogo,
+                        contentDescription = "${student.academy} 이미지",
+                        contentScale = ContentScale.Fit,
                         modifier = Modifier
-                            .size(50.dp)
-                            .clip(CircleShape)
+                            .size(40.dp)
+                            .clip(RoundedCornerShape(percent = 20))
+                            .background(Color(0xFF40484D))
                     )
                     Spacer(modifier = Modifier.width(8.dp))
 
@@ -210,7 +212,8 @@ fun StudentDetail(student: Student, navController: NavController, padding: Paddi
                         text = student.attack,
                         fontSize = 30.sp,
                         textAlign = TextAlign.Center,
-                        lineHeight = 35.sp
+                        lineHeight = 35.sp,
+                        color = Color.White
                     )
                     Text(
                         modifier = Modifier
@@ -221,7 +224,65 @@ fun StudentDetail(student: Student, navController: NavController, padding: Paddi
                         text = student.defence,
                         fontSize = 30.sp,
                         textAlign = TextAlign.Center,
+                        lineHeight = 35.sp,
+                        color = Color.White
+                    )
+                }
+            }
+        }
+        Card(
+            modifier = Modifier
+                .padding(10.dp)
+        ) {
+            Column {
+                Row(
+                    modifier = Modifier
+                        .padding(horizontal = 10.dp)
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth(0.3f)
+                            .fillMaxSize()
+                            .padding(8.dp),
+                        text = "무기타입",
+                        fontSize = 30.sp,
+                        textAlign = TextAlign.Center,
                         lineHeight = 35.sp
+                    )
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth(1f)
+                            .fillMaxSize()
+                            .padding(8.dp),
+                        text = "전용무기",
+                        fontSize = 30.sp,
+                        textAlign = TextAlign.Center,
+                        lineHeight = 35.sp
+                    )
+                }
+                Row(
+                    modifier = Modifier
+                        .padding(horizontal = 10.dp)
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    AsyncImage(
+                        model = student.weaponimg,
+                        contentDescription = "무기타입 이미지",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .fillMaxWidth(0.3f)
+                            .height(100.dp)
+                    )
+                    AsyncImage(
+                        model = "https://schale.gg/images/weapon/weapon_icon_${student.priweaponimg}.webp",
+                        contentDescription = "${student.name} 전용무기 이미지",
+                        contentScale = ContentScale.Fit,
+                        modifier = Modifier
+                            .fillMaxWidth(1f)
+                            .height(100.dp)
                     )
                 }
             }
